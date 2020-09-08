@@ -64,7 +64,7 @@ namespace Repositories
 
         public Article GetArticle(int id)
         {
-            return Articles.FirstOrDefault(article => article.Id == id);
+            return Articles.Single(article => article.Id == id);
         }
 
         #endregion
