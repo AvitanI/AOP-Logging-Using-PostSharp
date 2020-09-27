@@ -3,13 +3,12 @@ using Common.Models;
 using Common.Aspects;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using Repositories;
 
-namespace AOPLoggingUsingPostSharp.Controllers
+namespace Controllers
 {
     [Log]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ArticleController : ControllerBase
     {
         #region Instance Variables
@@ -20,10 +19,9 @@ namespace AOPLoggingUsingPostSharp.Controllers
 
         #region Constructors
 
-        public ArticleController()
+        public ArticleController(IArticleService service)
         {
-            // Init here instead of 'DI' for demo purpose
-            _service = new ArticleService(new ArticleRepository());
+            _service = service;
         }
 
         #endregion

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Repositories;
+using Services;
 
 namespace AOPLoggingUsingPostSharp
 {
@@ -25,6 +27,9 @@ namespace AOPLoggingUsingPostSharp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+            services.AddScoped<IArticleService, ArticleService>();
+
             services.AddControllers();
         }
 

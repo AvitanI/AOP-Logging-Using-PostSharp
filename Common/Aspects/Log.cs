@@ -14,9 +14,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnEntry(MethodExecutionArgs args)
         {
-            args.MethodExecutionTag = Stopwatch.StartNew();
-
-            WriteToLog($"The { DisplayName(args) } method has been entered.");
+            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Starting.");
         }
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnSuccess(MethodExecutionArgs args)
         {
-            WriteToLog($"The { DisplayName(args) } method executed successfully.");
+            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Succeeded.");
         }
 
         /// <summary>
@@ -36,10 +34,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnExit(MethodExecutionArgs args)
         {
-            var sw = (Stopwatch)args.MethodExecutionTag;
-            sw.Stop();
-
-            WriteToLog($"The { DisplayName(args) } method has exited (total execution time in MS: {sw.ElapsedMilliseconds}).");
+            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Exited.");
         }
 
         /// <summary>
@@ -49,42 +44,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnException(MethodExecutionArgs args)
         {
-            WriteToLog($"An exception was thrown in { DisplayName(args) }.");
-        }
-
-        private static string DisplayName(MethodExecutionArgs args) => $"{args.Method.DeclaringType.FullName}_{args.Method.Name}";
-
-        private static void WriteToLog(string msg) 
-        {
-            //[{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff")}] 
-            Debug.WriteLine($"{msg}");
+            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Failed.");
         }
     }
 }
-
-/*
-The thread 0x1ea0 has exited with code 0 (0x0).
-The AOPLoggingUsingPostSharp.Controllers.ArticleController_.ctor method has been entered.
-The Repositories.ArticleRepository_.ctor method has been entered.
-The Repositories.ArticleRepository_.ctor method executed successfully.
-The Repositories.ArticleRepository_.ctor method has exited (total execution time in MS: 8).
-The Services.ArticleService_.ctor method has been entered.
-The Services.ArticleService_.ctor method executed successfully.
-The Services.ArticleService_.ctor method has exited (total execution time in MS: 4).
-The AOPLoggingUsingPostSharp.Controllers.ArticleController_.ctor method executed successfully.
-The AOPLoggingUsingPostSharp.Controllers.ArticleController_.ctor method has exited (total execution time in MS: 23).
-The AOPLoggingUsingPostSharp.Controllers.ArticleController_Get method has been entered.
-The Services.ArticleService_GetArticle method has been entered.
-The Repositories.ArticleRepository_GetArticle method has been entered.
-Exception thrown: 'System.InvalidOperationException' in System.Linq.dll
-An exception was thrown in Repositories.ArticleRepository_GetArticle.
-Exception thrown: 'System.InvalidOperationException' in Repositories.dll
-The Repositories.ArticleRepository_GetArticle method has exited (total execution time in MS: 69).
-An exception was thrown in Services.ArticleService_GetArticle.
-Exception thrown: 'System.InvalidOperationException' in Services.dll
-The Services.ArticleService_GetArticle method has exited (total execution time in MS: 104).
-An exception was thrown in AOPLoggingUsingPostSharp.Controllers.ArticleController_Get.
-Exception thrown: 'System.InvalidOperationException' in AOPLoggingUsingPostSharp.dll
-An exception of type 'System.InvalidOperationException' occurred in AOPLoggingUsingPostSharp.dll but was not handled in user code
-Sequence contains no matching element
-*/
