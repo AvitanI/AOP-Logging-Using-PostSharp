@@ -1,6 +1,6 @@
-﻿using PostSharp.Aspects;
+﻿using Common.Extensions;
+using PostSharp.Aspects;
 using PostSharp.Serialization;
-using System;
 using System.Diagnostics;
 
 namespace Common.Aspects
@@ -14,7 +14,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnEntry(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Starting.");
+            Debug.WriteLine($"{args.FullMethodName()} - Starting.");
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnSuccess(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Succeeded.");
+            Debug.WriteLine($"{args.FullMethodName()} - Succeeded.");
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnExit(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Exited.");
+            Debug.WriteLine($"{args.FullMethodName()} - Exited.");
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnException(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.Method.DeclaringType.FullName}_{args.Method.Name} - Failed.");
+            Debug.WriteLine($"{args.FullMethodName()} - Failed.");
         }
     }
 }
