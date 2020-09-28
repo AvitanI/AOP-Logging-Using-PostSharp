@@ -9,8 +9,6 @@ namespace Repositories
     [Log]
     public class ArticleRepository : IArticleRepository
     {
-        #region Class Variables
-
         /// <summary>
         /// Should be loaded from DB
         /// </summary>
@@ -53,10 +51,6 @@ namespace Repositories
             }
         };
 
-        #endregion
-
-        #region Instance Methods
-
         public IEnumerable<Article> GetArticles()
         {
             return Articles.OrderByDescending(article => article.PublishDate);
@@ -66,7 +60,5 @@ namespace Repositories
         {
             return Articles.Single(article => article.Id == id);
         }
-
-        #endregion
     }
 }

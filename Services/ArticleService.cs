@@ -9,22 +9,12 @@ namespace Services
     [Log]
     public class ArticleService : IArticleService
     {
-        #region Instance Variables
-
         private readonly IArticleRepository _repository;
-
-        #endregion
-
-        #region Constructors
 
         public ArticleService(IArticleRepository repository)
         {
             _repository = repository;
         }
-
-        #endregion
-
-        #region Instance Methods
 
         public IEnumerable<Article> GetArticles()
         {
@@ -40,7 +30,5 @@ namespace Services
 
             return _repository.GetArticle(id);
         }
-
-        #endregion
     }
 }

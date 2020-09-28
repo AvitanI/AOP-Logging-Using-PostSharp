@@ -11,22 +11,12 @@ namespace Controllers
     [Route("api/[controller]")]
     public class ArticleController : ControllerBase
     {
-        #region Instance Variables
-
         private readonly IArticleService _service;
-
-        #endregion
-
-        #region Constructors
 
         public ArticleController(IArticleService service)
         {
             _service = service;
         }
-
-        #endregion
-
-        #region Instance Methods
 
         [HttpGet]
         public IEnumerable<Article> Get()
@@ -40,7 +30,5 @@ namespace Controllers
         {
             return _service.GetArticle(id);
         }
-
-        #endregion
     }
 }
