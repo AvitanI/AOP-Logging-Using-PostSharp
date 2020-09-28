@@ -10,7 +10,7 @@ namespace Repositories
     public class ArticleRepository : IArticleRepository
     {
         /// <summary>
-        /// Should be loaded from DB
+        /// Articles store
         /// </summary>
         private static readonly IEnumerable<Article> Articles = new List<Article>
         {
