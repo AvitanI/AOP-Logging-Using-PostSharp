@@ -21,8 +21,9 @@ namespace Common.Aspects
 
             if (args.Arguments != null && args.Arguments.Count > 0)
             {
-                Dictionary<string, object> parameters = args.Method.GetParameters().ToDictionary(key => key.Name, value => args.Arguments[value.Position]);
+                var parameters = args.Method.GetParameters().ToDictionary(key => key.Name, value => args.Arguments[value.Position]);
 
+                // Serialize to JSON (Newtonesof lib)
                 logDescription += $" args: {JsonConvert.SerializeObject(parameters)}";
             }
 
@@ -56,7 +57,7 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnException(MethodExecutionArgs args)
         {
-            string logDescription = $"{args.FullMethodName()} - Failed.";
+            var logDescription = $"{args.FullMethodName()} - Failed.";
 
             if (args.Exception != null)
             {
