@@ -1,7 +1,10 @@
 ﻿using Common.Extensions;
+using Newtonsoft.Json;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Common.Aspects
 {
@@ -14,7 +17,16 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnEntry(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.FullMethodName()} - Starting.");
+            var logDescription = $"{args.FullMethodName()} - Starting.";
+
+            if (args.Arguments != null && args.Arguments.Count > 0)
+            {
+                Dictionary<string, object> parameters = args.Method.GetParameters().ToDictionary(key => key.Name, value => args.Arguments[value.Position]);
+
+                logDescription += $" args: {JsonConvert.SerializeObject(parameters)}";
+            }
+
+            Debug.WriteLine(logDescription);
         }
 
         /// <summary>
@@ -44,7 +56,14 @@ namespace Common.Aspects
         /// <param name="args"></param>
         public override void OnException(MethodExecutionArgs args)
         {
-            Debug.WriteLine($"{args.FullMethodName()} - Failed.");
+            string logDescription = $"{args.FullMethodName()} - Failed.";
+
+            if (args.Exception != null)
+            {
+                logDescription += $" message: {args.Exception.Message}";
+            }
+
+            Debug.WriteLine(logDescription);
         }
     }
 }
