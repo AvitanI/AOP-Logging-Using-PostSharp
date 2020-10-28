@@ -19,7 +19,7 @@ namespace Repositories
                 Id = 1,
                 Author = "Idan Avitan",
                 Name = "how AOP can make our life easy using PostSharp",
-                PublishDate = new DateTime(2020, 8, 22)
+                PublishDate = new DateTime(2020, 10, 29)
             },
             new Article
             {
